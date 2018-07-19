@@ -34,6 +34,7 @@ using namespace std;
 #include "rr_graph_writer.h"
 #include "rr_graph_reader.h"
 #include "router_lookahead_map.h"
+#include "rr_graph_clock.h"
 
 #include "rr_types.h"
 
@@ -657,6 +658,10 @@ static void build_rr_graph(
 
     float elapsed_time = (float) (clock() - begin) / CLOCKS_PER_SEC;
     vtr::printf_info("Build routing resource graph took %g seconds\n", elapsed_time);
+
+    if (clock_modeling == DEDICATED_NETWORK) {
+        ClockRRGraph::create_and_append_clock_rr_graph();
+    }
 }
 
 /* Allocates and loads the global rr_switch_inf array based on the global
